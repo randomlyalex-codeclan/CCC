@@ -7,7 +7,13 @@ from src.guest import Guest
 class TestKaraokeBar(unittest.TestCase):
     
     def setUp(self):
-        pass
+        room001 = Room("Room 1", 10) # remind me why these don't need self. the self instance throws me a fair bit in testing.
+        room002 = Room("Room 2", 5)
+        room003 = Room("Room 3", 20)
+        room004 = Room("Room 4", 4)
+        room005 = Room("Room 5", 7)
+        room006 = Room("Room 6", 15)
+        self.tone_deaf = KaraokeBar("Tone Deaf", [room001, room002, room003, room004, room005, room006] )
 
     #Test create a room
     #Test a roll call of guests
