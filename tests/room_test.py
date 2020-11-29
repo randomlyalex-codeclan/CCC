@@ -12,9 +12,38 @@ class TestRoom(unittest.TestCase):
         self.room006 = Room("Room 6", 15)
 
     #test a room has an ID
-    #Test a room has a list of guests
-    #Test guests can be add or removed
-    #Test a room has a list of songs
-    #Test songs can be add or removed
-    #test room capacity full - ext
+    def test_room_has_unique_ID(self):
+        pass
+
+    
+    #check room starts with no occupants
+    def test_room_starts_with_no_occupants(self):
+        self.assertEqual(0, len(self.room001.occupants))
+        self.assertEqual(0, len(self.room002.occupants))
+        self.assertEqual(0, len(self.room003.occupants))
+        self.assertEqual(0, len(self.room004.occupants))
+        self.assertEqual(False ,self.room004.occupied)
+
+    #check occupancy
+    def test_room_returns_true_occupancy(self):
+        test_room = Room("Test Room", 10)
+        test_room.occupants = list(range(2))
+        self.assertEqual(len(test_room.occupants) > 0 ,test_room.check_occupancy())
+
+    #test can empty
+    def test_room_can_empty_occupants(self):
+        test_room = Room("Test Room to empty", 15)
+        test_room.occupants = [1,2,3,4]
+        test_room.empty()
+        self.assertEqual(False, test_room.check_occupancy())
+        
+
+    #test room starts with zero tab
+    def test_room_starts_with_zero_tab(self):
+        #self.assertEqual("Single Ladies", self.song005.title)
+        pass
+
     #test adding to room tab
+    def test_room_tab_increases(self):
+        #self.assertEqual("Single Ladies", self.song005.title)
+        pass
