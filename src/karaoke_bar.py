@@ -26,10 +26,10 @@ class KaraokeBar:
         for room in self.rooms_list:
             if room == room_to_add and song_to_add not in room.songs_list:
                 room.songs_list.append(song_to_add)
-                return f"Added {song_to_add}"
+                return f"Added {song_to_add.title}"
             elif room == room_to_add and song_to_add in room.songs_list:
                 room.songs_list.remove(song_to_add)
-                return f"Removed {song_to_add}"
+                return f"Removed {song_to_add.title}"
 
 
 

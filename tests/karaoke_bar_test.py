@@ -106,13 +106,27 @@ class TestKaraokeBar(unittest.TestCase):
 #def test_add_guest_to_full_room(self): - ext
 
 # Test Add a song to a room it isn't in
-    def test_add_remove_song__to_room_by_song(self):
+    def test_add_song__to_room_by_song(self):
         self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002)
         self.assertEqual(True, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
 
-# Test Add a song to a room it isn't in
+# Test the same with a few songs
+    def test_add_a_few_songs__to_room_by_song(self):
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song010, self.room003)
+        self.assertEqual("Added Shake It Off",self.tone_deaf.add_remove_song_to_room_by_song(self.song001, self.room003))
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002)
+        self.assertEqual(True, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
 
-# Test Remove a song from a room it is in
+# Test Remove a song from a room it is already in
+    def test_remove_song__to_room_by_song(self):
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song010, self.room003)
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song001, self.room003)
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002)
+        self.assertEqual("Removed My Way", self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002))
+        self.assertEqual(False, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
+    
+
+
 
 # Test a roll call of guests
 
