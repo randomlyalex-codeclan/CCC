@@ -113,7 +113,7 @@ class TestKaraokeBar(unittest.TestCase):
 
 # Test add a guest to a room they aren't in
     def test_add_remove_guest__to_empty_room(self):
-        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001)
+        self.assertEqual("Added to Room 1", self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001))
         self.assertEqual(self.room001, self.tone_deaf.search_for_guest(self.mark))
 
 # Test add the same guest twice, which should remove them. 
@@ -122,8 +122,6 @@ class TestKaraokeBar(unittest.TestCase):
         self.assertEqual("Removed from Room 1", self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001))
 
 #def test_add_guest_to_full_room(self): - ext
-
-# Test remove a guest from a room they are in
 
 # Test Add a song to a room it isn't in
 
