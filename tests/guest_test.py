@@ -7,10 +7,10 @@ class TestGuest(unittest.TestCase):
         self.mark = Guest("Mark")
         self.ben = Guest("Ben",1)
         self.jane = Guest("Jane",2, "Wonderwall", 100.00)
-        # self.peter = Guest("Peter",)
-        # self.john = Guest("John", -1)
-        # self.sally = Guest("Sally",)
-        # self.dan = Guest("Dan",)
+        self.peter = Guest("Peter")
+        self.john = Guest("John", 3)
+        self.sally = Guest("Sally")
+        self.dan = Guest("Dan")
 
     #Test a Guest has a name
     def test_guest_has_a_name(self):
