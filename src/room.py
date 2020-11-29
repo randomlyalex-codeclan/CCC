@@ -16,4 +16,7 @@ class Room:
     def empty(self):
         self.occupied = False
         self.occupants.clear()
+
+    def add_to_tab(self, item_price):
+        self.tab += item_price
         

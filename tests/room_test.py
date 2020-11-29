@@ -40,10 +40,10 @@ class TestRoom(unittest.TestCase):
 
     #test room starts with zero tab
     def test_room_starts_with_zero_tab(self):
-        #self.assertEqual("Single Ladies", self.song005.title)
-        pass
+        self.assertEqual(0.00, self.room002.tab)
 
     #test adding to room tab
     def test_room_tab_increases(self):
-        #self.assertEqual("Single Ladies", self.song005.title)
-        pass
+        test_room = Room("Test room tab", 10)
+        test_room.add_to_tab(50.50)
+        self.assertEqual(50.50, test_room.tab)
