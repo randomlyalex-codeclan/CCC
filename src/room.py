@@ -7,6 +7,7 @@ class Room:
         Room.ID += 1
         self.occupied = False
         self.occupants = []
+        self.songs_list = []
         self.tab = 0.00
 
     def check_occupancy(self):
