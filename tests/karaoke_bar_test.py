@@ -15,6 +15,7 @@ class TestKaraokeBar(unittest.TestCase):
         self.room004 = Room("Room 4", 4) # the self within the unittesting really throws me, i think i need further talk over this.
         self.room005 = Room("Room 5", 7)
         self.room006 = Room("Room 6", 15)
+        self.front_desk = Room("Front Desk", 30)
 
 # setup a main test bar with rooms
         self.tone_deaf = KaraokeBar("Tone Deaf", [
@@ -95,8 +96,19 @@ class TestKaraokeBar(unittest.TestCase):
 
 # Test add a guest to a room they aren't in
     def test_add_remove_guest__to_empty_room(self):
-        self.assertEqual("Added to Room 1", self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001))
-        self.assertEqual(self.room001, self.tone_deaf.search_for_guest(self.mark))
+        self.assertEqual("Added to Room 2", self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room002))
+        self.assertEqual(self.room002, self.tone_deaf.search_for_guest(self.peter))
+
+#test add 1 people to a room
+    def test_add_7_people_to_a_room(self):        
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.ben, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room003)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room004)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room005)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.sally, self.room006)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.dan, self.room002)
+        self.assertEqual(self.room002, self.tone_deaf.search_for_guest(self.mark))
 
 # Test add the same guest twice, which should remove them. 
     def test_add_remove_guest__to_room_with_them_in(self):
@@ -104,6 +116,26 @@ class TestKaraokeBar(unittest.TestCase):
         self.assertEqual("Removed from Room 1", self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, None))
 
 #def test_add_guest_to_full_room(self): - ext
+
+    def test_add_guest_to_full_room(self):
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.ben, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.sally, self.room002)  #both of these shouldnt add
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.dan, self.room002)  #both of these should add
+        self.assertEqual(5,len(self.tone_deaf.roll_call()))
+
+# move guests between rooms test
+    def test_move_guests_between_rooms(self):
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.ben, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room002)
+        self.assertEqual(False, self.tone_deaf.move_guests_between_rooms(self.room002, self.room004)) # this should be rejected
+        self.assertEqual(True, self.tone_deaf.move_guests_between_rooms(self.room002, self.room005)) # but then this should be allowed
 
 # Test Add a song to a room it isn't in
     def test_add_song__to_room_by_song(self):
@@ -126,13 +158,49 @@ class TestKaraokeBar(unittest.TestCase):
         self.assertEqual(False, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
     
 
-
-
 # Test a roll call of guests
+    def test_roll_call_of_guests(self):
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.ben, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room003)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room004)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room005)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.sally, self.room006)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.dan, self.room002)
+        self.assertEqual(7,len(self.tone_deaf.roll_call()))
 
 # Test add a guest with friends to a room
+
 # Test room empty
+
+    def test_empty_room(self):
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.ben, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room004)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room005)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.sally, self.room006)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.dan, self.room002)
+        self.assertEqual(7,len(self.tone_deaf.roll_call()))
+        self.tone_deaf.empty_room(self.room002)
+        self.assertEqual(4,len(self.tone_deaf.roll_call()))
+
 # Test list of Empty rooms
+    def test_return_empty_rooms(self):
+        self.assertEqual(6,len(self.tone_deaf.find_empty_rooms()))
+
+# test empty rooms after adding and removing and then emptying a room
+    def test_return_empty_rooms_better(self):
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.mark, self.room001)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.ben, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.room002)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room004)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room005)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.sally, self.room006)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.dan, self.room002)
+        self.tone_deaf.empty_room(self.room002)
+        self.assertEqual([self.room002,self.room003],self.tone_deaf.find_empty_rooms())
+        
 
 # Test Add a genre to a room
 # Test Add an artist to a room

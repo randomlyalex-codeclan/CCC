@@ -3,7 +3,7 @@ class Room:
     
     def __init__(self, name, capacity):
         self.name = name
-        self.capcity = capacity
+        self.capacity = capacity
         Room.ID += 1
         self.occupied = False
         self.occupants = []
