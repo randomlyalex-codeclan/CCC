@@ -124,6 +124,8 @@ class TestKaraokeBar(unittest.TestCase):
 #def test_add_guest_to_full_room(self): - ext
 
 # Test Add a song to a room it isn't in
+    #def test_add_remove_song__to_room_by_song(self):
+
 
 # Test Remove a song from a room it is in
 
