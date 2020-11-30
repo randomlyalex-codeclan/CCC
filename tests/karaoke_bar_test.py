@@ -201,6 +201,14 @@ class TestKaraokeBar(unittest.TestCase):
         self.tone_deaf.empty_room(self.room002)
         self.assertEqual([self.room002,self.room003],self.tone_deaf.find_empty_rooms())
         
+#favourite song test
+    def test_guests_fav_song_is_in_the_room(self):
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song010, self.room005)
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song001, self.room005)
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room005)
+        self.tone_deaf.add_remove_song_to_room_by_song(self.song015, self.room005)
+        self.assertEqual("Whoo! Fav Track!",self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room005))
+
 
 # Test Add a genre to a room
 # Test Add an artist to a room

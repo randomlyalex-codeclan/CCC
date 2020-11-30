@@ -22,3 +22,4 @@ class Guest:
             self.friends = friends_list
         #remember to to consider member ID relationship between members and guests etc... 
         
+ 

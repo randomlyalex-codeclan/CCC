@@ -16,6 +16,9 @@ class KaraokeBar:
                 if room == req_room and len(room.occupants) < room.capacity:
                     room.occupants.append(guest)
                     room.occupied = True
+                    for song in room.songs_list:
+                        if guest.fav_song == (song.title or song.artist):
+                            return "Whoo! Fav Track!"
                     return f"Added to {room.name}"
 
     def search_for_guest(self, guest_to_search):
