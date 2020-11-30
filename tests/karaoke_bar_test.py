@@ -223,8 +223,12 @@ class TestKaraokeBar(unittest.TestCase):
         self.assertEqual(40.00, self.tone_deaf.till)
         self.assertEqual(4, len(self.room005.occupants))
 
-
+# Test add a list of song id's to a room
+# Test check list of songs time, and dont allow more songs than time on the room
 # Test Add a genre to a room
 # Test Add an artist to a room
 # Test add a decade to a room
 # Test add a year group that doesnt exist
+# test itemised_tab as dictionary of key: guest / value: money owed. total of this passes to current tab attribute.
+# test buying food/drink
+

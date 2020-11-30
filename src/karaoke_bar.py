@@ -1,3 +1,10 @@
+# questions:
+# 1. I think add_remove_guest_to_room_by_guest() can be refactored, but need thoughts
+# 2. in find_empty_rooms() I can't figure out how to enter a for loop from index[1] instead of the whole list.
+# 3. with Guest Class, i wanted to have an incremntal member ID number, but i couldn't get it to work
+# 4. i wanted to __init__ guests so they already exist in a list in the Rooms Class (specifically Front_Desk, or even better index[0] 
+# as its the main room things start in) there is no reason for a guest to to exist without starting there
+# 5. is there a special function to add all objects "setUp" into a list?  Ie all the songs or at least not have more code lines there?
 class KaraokeBar:
     def __init__(self, name, rooms_list):
         self.name = name
