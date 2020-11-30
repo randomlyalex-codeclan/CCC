@@ -20,6 +20,7 @@ class Guest:
             self.friends_list = []
         else:
             self.friends = friends_list
+        # hopw do I make guests __init__ in the front_desk?
         #remember to to consider member ID relationship between members and guests etc... 
         
  

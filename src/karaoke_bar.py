@@ -3,6 +3,7 @@ class KaraokeBar:
         self.name = name
         self.rooms_list = rooms_list
         self.till = 0
+        self.rate = 40.00
 
     def add_remove_guest_to_room_by_guest(self, guest, req_room): # should check the room is empty or not later
         for room in self.rooms_list:
@@ -51,19 +52,36 @@ class KaraokeBar:
 
     def find_empty_rooms(self):
         free_rooms = []
+        # self.rooms_list[0].occupied = True
+        # self.rooms_list[0].occupants = [1]
         for room in self.rooms_list:
-            if room.occupied == False or len(room.occupants) == 0:
+            if (room.occupied == False or len(room.occupants) == 0) and room != self.rooms_list[0]: # this is super hacky, help. :)
                 free_rooms.append(room)
         return free_rooms
 
     def move_guests_between_rooms(self, room_from, room_to):
         for room in self.rooms_list:
             if room == room_to and room.occupied == False and room.capacity > len(room_from.occupants):
-                middle_swap = room_from
-                room_from = room_to
-                room_to = middle_swap
+                room_to.occupants = room_from.occupants
+                room.occupied = True
+                self.empty_room(room_from)              
                 return True
         return False
+
+    def pay_for_time_and_room(self, paying_guest, time_in_h, room_to_book, front_desk):
+        #check room to book is empty
+        cost = time_in_h * self.rate
+        if room_to_book.occupied == False:
+            if paying_guest.wallet > cost:  #check the guest has enough money for the time
+                if self.move_guests_between_rooms(front_desk, room_to_book) != False: #check the frontdesk  will fit in room to book and move to room to book
+                    self.move_guests_between_rooms(front_desk, room_to_book)
+                    paying_guest.wallet -= cost
+                    self.till += cost
+#                    self.timer += time_in_h
+                    return "Enjoy your night!"
+
+        # ≈ add their songs (figure this out later)
+
 
 
 

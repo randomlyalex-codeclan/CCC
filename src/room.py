@@ -9,6 +9,7 @@ class Room:
         self.occupants = []
         self.songs_list = []
         self.tab = 0.00
+        self.timer = 0
 
     def check_occupancy(self):
         if self.occupants != []: self.occupied = True

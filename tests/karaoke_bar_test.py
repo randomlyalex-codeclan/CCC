@@ -19,12 +19,13 @@ class TestKaraokeBar(unittest.TestCase):
 
 # setup a main test bar with rooms
         self.tone_deaf = KaraokeBar("Tone Deaf", [
+            self.front_desk,
             self.room001,
             self.room002,
             self.room003,
             self.room004,
             self.room005,
-            self.room006
+            self.room006     
         ]
         )
 
@@ -76,7 +77,7 @@ class TestKaraokeBar(unittest.TestCase):
 # Test room name exists
 
     def test_room_name_exists(self):
-        self.assertEqual("Room 1", self.tone_deaf.rooms_list[0].name)
+        self.assertEqual("Front Desk", self.tone_deaf.rooms_list[0].name)
 
 # Test room creation
     def test_room_creation(self):
@@ -135,19 +136,21 @@ class TestKaraokeBar(unittest.TestCase):
         self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.room002)
         self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room002)
         self.assertEqual(False, self.tone_deaf.move_guests_between_rooms(self.room002, self.room004)) # this should be rejected
-        self.assertEqual(True, self.tone_deaf.move_guests_between_rooms(self.room002, self.room005)) # but then this should be allowed
+        self.assertEqual(True, self.tone_deaf.move_guests_between_rooms(self.room002, self.front_desk)) # but then this should be allowed
+        self.assertEqual(True, self.tone_deaf.move_guests_between_rooms(self.front_desk, self.room005)) # but then this should be allowed
+
 
 # Test Add a song to a room it isn't in
     def test_add_song__to_room_by_song(self):
         self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002)
-        self.assertEqual(True, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
+        self.assertEqual(True, self.song016 in self.tone_deaf.rooms_list[2].songs_list)
 
 # Test the same with a few songs
     def test_add_a_few_songs__to_room_by_song(self):
         self.tone_deaf.add_remove_song_to_room_by_song(self.song010, self.room003)
         self.assertEqual("Added Shake It Off",self.tone_deaf.add_remove_song_to_room_by_song(self.song001, self.room003))
         self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002)
-        self.assertEqual(True, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
+        self.assertEqual(True, self.song016 in self.tone_deaf.rooms_list[2].songs_list)
 
 # Test Remove a song from a room it is already in
     def test_remove_song__to_room_by_song(self):
@@ -155,7 +158,7 @@ class TestKaraokeBar(unittest.TestCase):
         self.tone_deaf.add_remove_song_to_room_by_song(self.song001, self.room003)
         self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002)
         self.assertEqual("Removed My Way", self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room002))
-        self.assertEqual(False, self.song016 in self.tone_deaf.rooms_list[1].songs_list)
+        self.assertEqual(False, self.song016 in self.tone_deaf.rooms_list[2].songs_list)
     
 
 # Test a roll call of guests
@@ -208,6 +211,17 @@ class TestKaraokeBar(unittest.TestCase):
         self.tone_deaf.add_remove_song_to_room_by_song(self.song016, self.room005)
         self.tone_deaf.add_remove_song_to_room_by_song(self.song015, self.room005)
         self.assertEqual("Whoo! Fav Track!",self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.room005))
+
+# test main guest paying for 1 hour
+    def test_guest_paying_for_1_hour(self):
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.peter, self.front_desk)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.john, self.front_desk)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.jane, self.front_desk)
+        self.tone_deaf.add_remove_guest_to_room_by_guest(self.sally, self.front_desk)
+        self.tone_deaf.pay_for_time_and_room(self.jane, 1, self.room005, self.front_desk)
+        self.assertEqual(60.00, self.jane.wallet)
+        self.assertEqual(40.00, self.tone_deaf.till)
+#        self.assertEqual(4, len(self.room005.occupants))
 
 
 # Test Add a genre to a room
