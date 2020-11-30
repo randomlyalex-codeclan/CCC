@@ -54,7 +54,7 @@ class KaraokeBar:
         free_rooms = []
         # self.rooms_list[0].occupied = True
         # self.rooms_list[0].occupants = [1]
-        for room in self.rooms_list:
+        for room in self.rooms_list: #how do I start from index 1, i thought it was [1:] but that didnt work.
             if (room.occupied == False or len(room.occupants) == 0) and room != self.rooms_list[0]: # this is super hacky, help. :)
                 free_rooms.append(room)
         return free_rooms
@@ -62,7 +62,8 @@ class KaraokeBar:
     def move_guests_between_rooms(self, room_from, room_to):
         for room in self.rooms_list:
             if room == room_to and room.occupied == False and room.capacity > len(room_from.occupants):
-                room_to.occupants = room_from.occupants
+                room_to.occupants.clear()
+                room_to.occupants.extend(room_from.occupants)
                 room.occupied = True
                 self.empty_room(room_from)              
                 return True

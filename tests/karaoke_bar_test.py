@@ -221,7 +221,7 @@ class TestKaraokeBar(unittest.TestCase):
         self.tone_deaf.pay_for_time_and_room(self.jane, 1, self.room005, self.front_desk)
         self.assertEqual(60.00, self.jane.wallet)
         self.assertEqual(40.00, self.tone_deaf.till)
-#        self.assertEqual(4, len(self.room005.occupants))
+        self.assertEqual(4, len(self.room005.occupants))
 
 
 # Test Add a genre to a room
